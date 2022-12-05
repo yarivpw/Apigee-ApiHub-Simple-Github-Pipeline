@@ -14,6 +14,6 @@ jobs:
       - name: Set Variables for [Main] branch
         run: |
           # Diff HEAD with the previous commit
-          diff = $(git diff --name-only HEAD^ HEAD)
+          diff = $(git diff --name-only HEAD)
 
           echo "diff : " $diff 
