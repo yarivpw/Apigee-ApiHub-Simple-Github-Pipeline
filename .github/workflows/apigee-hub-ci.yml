@@ -1,0 +1,19 @@
+
+name: Apigee API Hub CI with Maven
+
+on: push
+    
+jobs:
+  Test-File:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+
+      - name: Set Variables for [Main] branch
+        run: |
+          # Diff HEAD with the previous commit
+          $diff = git diff --name-only HEAD^ HEAD
+
+          echo "diff : " $diff 
