@@ -17,5 +17,7 @@ jobs:
         run: |
           # Diff HEAD with the previous commit
           diff=$(git diff --name-only)
-
           echo "diff : " $diff 
+
+          status=$(git status)
+          echo "status : " $status 
