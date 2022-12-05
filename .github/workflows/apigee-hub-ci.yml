@@ -8,8 +8,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-
+      - uses: actions/checkout@v2
+        with:
+          # Checkout as many commits as needed for the diff
+          fetch-depth: 2
 
       - name: Set Variables for [Main] branch
         run: |
