@@ -32,7 +32,7 @@ jobs:
         # Set the output named "docs_changed"
         echo "docs_changed=$HasDiff" >> $GITHUB_ENV
 
-        echo "$GITHUB_ENV=" $GITHUB_ENV
+        cat "GITHUB_ENV=" $GITHUB_ENV
 
     - name: conditional
       #if: ${{ env.docs_changed }}
