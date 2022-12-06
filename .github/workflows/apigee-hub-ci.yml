@@ -34,7 +34,7 @@ jobs:
   conditional_job:
     runs-on: 'ubuntu-20.04'
     #needs: [ conditional_job_check_files ]
-    if: env.docs_changed == 'True'
+    if: "env.docs_changed == 'True'"
     # if: needs.conditional_job_check_files.outputs.docs_changed == 'True'
     steps:
     - shell: pwsh
