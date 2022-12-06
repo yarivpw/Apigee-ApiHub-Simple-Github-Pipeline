@@ -26,9 +26,13 @@ jobs:
          echo "found 2:" $SourceDiff
 
         $HasDiff = $SourceDiff.Length -gt 0
+         echo "found 3:" $HasDiff
+
 
         # Set the output named "docs_changed"
-        Write-Host "docs_changed=$HasDiff" >> $GITHUB_ENV
+        echo "docs_changed=$HasDiff" >> $GITHUB_ENV
+
+        echo "$GITHUB_ENV=" $GITHUB_ENV
 
     - name: conditional
       #if: ${{ env.docs_changed }}
