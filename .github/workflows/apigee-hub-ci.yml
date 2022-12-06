@@ -36,7 +36,9 @@ jobs:
          echo "found 3:" $HasDiff
 
         # Set the output named "docs_changed"
-        echo "docs_changed=$HasDiff" >> $GITHUB_ENV
+        # echo "docs_changed=$HasDiff" >> $GITHUB_ENV
+        Write-Host "docs_changed=$HasDiff" >> $GITHUB_ENV
+
 
     - name: conditional
       #if: ${{ env.docs_changed }}
