@@ -30,7 +30,7 @@ jobs:
         # Set the output named "docs_changed"
         Write-Host "{docs_changed}={$HasDiff}" >> $GITHUB_OUTPUT
 
-    - name: Set Variables for [Main] branch
-      if: env.docs_changed == 'True'
+    - name: conditional
+      if: docs_changed == 'True'
       run: echo publish docs
 
