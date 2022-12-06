@@ -31,6 +31,6 @@ jobs:
         Write-Host "{docs_changed}={$HasDiff}" >> $GITHUB_OUTPUT
 
     - name: conditional
-      if: docs_changed == 'True'
+      if: HasDiff == 'True'
       run: echo publish docs
 
