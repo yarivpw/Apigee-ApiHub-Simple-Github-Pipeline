@@ -30,12 +30,11 @@ jobs:
         # Set the output named "docs_changed"
         Write-Host "{docs_changed}={$HasDiff}" >> $GITHUB_OUTPUT
 
-
   # Run the job only with "docs_changed" equals "True"
   conditional_job:
     runs-on: 'ubuntu-20.04'
     #needs: [ conditional_job_check_files ]
-    if: docs_changed == 'True'
+    if: env.docs_changed == 'True'
     # if: needs.conditional_job_check_files.outputs.docs_changed == 'True'
     steps:
     - shell: pwsh
