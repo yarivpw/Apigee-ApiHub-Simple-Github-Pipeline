@@ -37,7 +37,7 @@ jobs:
 
         # Set the output named "docs_changed"
         # echo "docs_changed=$HasDiff" >> $GITHUB_ENV
-        Write-Host "docs_changed=$HasDiff" >> $GITHUB_ENV
+        Write-Host "docs_changed=$HasDiff" >> $env:GITHUB_ENV
 
 
     - name: conditional
