@@ -2,7 +2,7 @@
 name: Apigee API Hub CI with Maven
 
 on: push
-    
+
 jobs:
   conditional_job_check_files:
     runs-on: 'ubuntu-20.04'
@@ -28,13 +28,12 @@ jobs:
         $HasDiff = $SourceDiff.Length -gt 0
          echo "found 3:" $HasDiff
 
-
         # Set the output named "docs_changed"
         echo "docs_changed=$HasDiff" >> $GITHUB_ENV
 
-        cat "GITHUB_ENV=" $GITHUB_ENV
-
     - name: conditional
       #if: ${{ env.docs_changed }}
-      run: echo "-> " ${{ env.docs_changed }}
+      run: echo "-> " $change
+      env:
+        change: ${{ env.docs_changed }}
 
