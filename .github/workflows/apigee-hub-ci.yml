@@ -15,12 +15,6 @@ jobs:
         # Checkout as many commits as needed for the diff
         fetch-depth: 2
 
-    - name: Determine version
-      shell: bash
-      run: |
-        TERMINUS_RELEASE="popo"
-        echo "TERMINUS_RELEASE=$TERMINUS_RELEASE" >> $GITHUB_ENV
-
     - shell: pwsh
       id: check_file_changed
       run: |
@@ -36,15 +30,11 @@ jobs:
          echo "found 3:" $HasDiff
 
         # Set the output named "docs_changed"
-        # echo "docs_changed=$HasDiff" >> $GITHUB_ENV
         "docs_changed=$HasDiff" >> $env:GITHUB_ENV
-
 
     - name: conditional
       #if: ${{ env.docs_changed }}
       run: |
         echo "-> " $change
-        echo "-> " $TERMINUS_RELEASE
-      env:
-        change: ${{ env.docs_changed }}
-        TERMINUS_RELEASE: ${{ env.TERMINUS_RELEASE }}
+     # env:
+     #   change: ${{ env.docs_changed }}
