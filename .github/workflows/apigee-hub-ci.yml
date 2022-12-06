@@ -14,6 +14,13 @@ jobs:
       with:
         # Checkout as many commits as needed for the diff
         fetch-depth: 2
+
+    - name: Determine version
+      shell: bash
+      run: |
+        TERMINUS_RELEASE="popo"
+        echo "TERMINUS_RELEASE=$TERMINUS_RELEASE" >> $GITHUB_ENV
+
     - shell: pwsh
       id: check_file_changed
       run: |
@@ -33,7 +40,9 @@ jobs:
 
     - name: conditional
       #if: ${{ env.docs_changed }}
-      run: echo "-> " $change
+      run: |
+        echo "-> " $change
+        echo "-> " $TERMINUS_RELEASE
       env:
         change: ${{ env.docs_changed }}
-
+        TERMINUS_RELEASE: ${{ env.TERMINUS_RELEASE }}
