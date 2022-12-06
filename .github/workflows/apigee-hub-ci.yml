@@ -31,6 +31,6 @@ jobs:
         Write-Host "docs_changed=$HasDiff" >> $GITHUB_ENV
 
     - name: conditional
-      if: ${{ env.docs_changed }}
-      run: echo publish docs
+      #if: ${{ env.docs_changed }}
+      run: echo "-> " ${{ env.docs_changed }}
 
