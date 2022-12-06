@@ -33,8 +33,8 @@ jobs:
         "docs_changed=$HasDiff" >> $env:GITHUB_ENV
 
     - name: conditional
-      #if: ${{ env.docs_changed }}
+      if: ${{ env.docs_changed }}
       run: |
         echo "-> " $change
-     # env:
-     #   change: ${{ env.docs_changed }}
+      env:
+        change: ${{ env.docs_changed }}
