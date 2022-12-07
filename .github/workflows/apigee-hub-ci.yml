@@ -15,8 +15,16 @@ jobs:
         # Checkout as many commits as needed for the diff
         fetch-depth: 2
 
+    - name: check_file_changed_bash
+      run: |
+        # Diff HEAD with the previous commit
+        $diff = git diff --name-only HEAD^ HEAD
+        echo "found:" $diff
+
+
     - shell: pwsh
       id: check_file_changed
+      if: ${{ env.docs_changed }}
       run: |
         # Diff HEAD with the previous commit
         $diff = git diff --name-only HEAD^ HEAD
