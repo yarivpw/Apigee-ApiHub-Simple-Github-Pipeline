@@ -18,7 +18,7 @@ jobs:
     - name: check_file_changed_bash
       run: |
         # Diff HEAD with the previous commit
-        $diff = git diff --name-only HEAD^ HEAD
+        $diff=$(git diff --name-only HEAD^ HEAD)
         echo "found:" $diff
 
 
