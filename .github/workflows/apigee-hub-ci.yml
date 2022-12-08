@@ -12,11 +12,12 @@ env:
   GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
 jobs:
-  conditional_job_check_files:
-    runs-on: 'ubuntu-20.04'
+  Apigee-Api-Hub-Deploy:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    runs-on: ubuntu-latest
 
-  steps:
-    - uses: actions/checkout@v2
+    steps:
+      - uses: actions/checkout@v3
       with:
         # Checkout as many commits as needed for the diff
         fetch-depth: 2
@@ -26,29 +27,29 @@ jobs:
         run: | 
           echo $GCP_SERVICE_ACCOUNT > sa.json
 
-    # Check if ApiHub config file or specification file changed      
-    - name: check_spec_file_changed
-      shell: bash {0}
-      run: |
-        # Diff HEAD with the previous commit
-        diff=$(git diff --name-only HEAD^ HEAD)
-        echo "Files updated in last commit:" $diff
+      # Check if ApiHub config file or specification file changed      
+      - name: check_spec_file_changed
+        shell: bash {0}
+        run: |
+          # Diff HEAD with the previous commit
+          diff=$(git diff --name-only HEAD^ HEAD)
+          echo "Files updated in last commit:" $diff
 
-        # Check if spec file(s) changed
-        specConfigDiff=$(echo $diff | tr " " "\n" | grep -E "apiHub/api-config.yaml|apiHub/specs/.+\.(json|yaml)")
+          # Check if spec file(s) changed
+          specConfigDiff=$(echo $diff | tr " " "\n" | grep -E "apiHub/api-config.yaml|apiHub/specs/.+\.(json|yaml)")
 
-        if [ -z "$specConfigDiff" ]
-        then
-          updateHub=false
-        else
-          updateHub=true
-        fi
+          if [ -z "$specConfigDiff" ]
+          then
+            updateHub=false
+          else
+            updateHub=true
+          fi
 
-        # Set updateHub trigger
-        echo "updateHub=$updateHub" >> $GITHUB_ENV
+          # Set updateHub trigger
+          echo "updateHub=$updateHub" >> $GITHUB_ENV
 
-    # Create/Update API in API Hub  
-    - name: update Apigee Api Hub
-      if: ${{ env.updateHub }}
-      run: |
-        mvn install -Pdev -DprojectId=$APIGEE_ORG -Doptions=create -Dfile=sa.json
+      # Create/Update API in API Hub  
+      - name: update Apigee Api Hub
+        if: ${{ env.updateHub }}
+        run: |
+          mvn install -Pdev -DprojectId=$APIGEE_ORG -Doptions=create -Dfile=sa.json
