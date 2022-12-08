@@ -3,29 +3,39 @@ name: Apigee API Hub CI with Maven
 
 on: push
 
+env:
+
+  # Default Target Apigee Organization et environment (can be also be dynamically defined in [Set Variables *] steps)
+  APIGEE_ORG: bap-emea-apigee-5
+  APIGEE_ENV: default-dev
+  TEST_HOST: 34.117.38.184.nip.io
+  GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
 jobs:
   conditional_job_check_files:
     runs-on: 'ubuntu-20.04'
-    # Declare outputs for next jobs
-    outputs:
-      docs_changed: ${{ steps.check_file_changed.outputs.docs_changed }}
+
     steps:
     - uses: actions/checkout@v2
       with:
         # Checkout as many commits as needed for the diff
         fetch-depth: 2
 
-    - name: check_file_changed_bash
+   # Generate SA key file from secret variable
+      - name: Generate SA key file
+        run: | 
+          echo $GCP_SERVICE_ACCOUNT > sa.json
+
+    # Check if ApiHub config file or specification file changed      
+    - name: check_spec_file_changed
       shell: bash {0}
       run: |
         # Diff HEAD with the previous commit
         diff=$(git diff --name-only HEAD^ HEAD)
-        echo "found:" $diff
+        echo "Files updated in last commit:" $diff
 
-        # Check if spec config changed
+        # Check if spec file(s) changed
         specConfigDiff=$(echo $diff | tr " " "\n" | grep -E "apiHub/api-config.yaml|apiHub/specs/.+\.(json|yaml)")
-
-        echo "found 2:" $specConfigDiff 
 
         if [ -z "$specConfigDiff" ]
         then
@@ -34,14 +44,11 @@ jobs:
           updateHub=true
         fi
 
-        echo "found 4:" $updateHub
-
-        # Set the output named "docs_changed"
+        # Set updateHub trigger
         echo "updateHub=$updateHub" >> $GITHUB_ENV
- 
-    - name: conditional
-      #if: ${{ env.updateHub }}
+
+    # Create/Update API in API Hub  
+    - name: update Apigee Api Hub
+      if: ${{ env.updateHub }}
       run: |
-        echo "-> " ${{ env.updateHub }}
-      #env:
-       # change: ${{ env.updateHub }}
+        mvn install -Pdev -DprojectId=$APIGEE_ORG -Doptions=create -Dfile=sa.json
