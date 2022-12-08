@@ -15,7 +15,7 @@ jobs:
   conditional_job_check_files:
     runs-on: 'ubuntu-20.04'
 
-    steps:
+  steps:
     - uses: actions/checkout@v2
       with:
         # Checkout as many commits as needed for the diff

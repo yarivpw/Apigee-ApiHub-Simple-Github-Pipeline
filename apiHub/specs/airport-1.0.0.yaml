@@ -117,4 +117,3 @@ definitions:
           message:
             type: string
             example: "Not Found"
-
