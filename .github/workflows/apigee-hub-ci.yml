@@ -12,17 +12,22 @@ env:
   GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
 jobs:
+  Apigee-Deploy:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    runs-on: ubuntu-latest
+
+jobs:
   Apigee-Api-Hub-Deploy:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
-      with:
-        # Checkout as many commits as needed for the diff
-        fetch-depth: 2
+        with:
+          # Checkout as many commits as needed for the diff
+          fetch-depth: 2
 
-   # Generate SA key file from secret variable
+      # Generate SA key file from secret variable
       - name: Generate SA key file
         run: | 
           echo $GCP_SERVICE_ACCOUNT > sa.json
