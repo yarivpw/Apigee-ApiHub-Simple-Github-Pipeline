@@ -27,11 +27,11 @@ jobs:
 
         echo "found 2:" $specConfigDiff 
 
-        if (( -z $specConfigDiff ))
+        if (( -z "$specConfigDiff" ))
         then
-          updateHub=true
-        else
           updateHub=false
+        else
+          updateHub=true
         fi
 
         echo "found 4:" $updateHub
