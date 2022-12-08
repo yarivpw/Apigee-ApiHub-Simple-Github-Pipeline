@@ -37,7 +37,7 @@ jobs:
         echo "found 4:" $updateHub
 
         # Set the output named "docs_changed"
-        "updateHub=$updateHub" >> $env:GITHUB_ENV
+        echo "updateHub=$updateHub" >> $env:GITHUB_ENV
 
  
 
