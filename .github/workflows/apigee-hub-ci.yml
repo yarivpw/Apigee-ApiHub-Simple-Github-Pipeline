@@ -30,7 +30,9 @@ jobs:
         $diff = git diff --name-only HEAD^ HEAD
         echo "found:" $diff
 
-        # Check if apiHub/api-config.yaml or apiHub/specs/¨.yaml or json updated
+        # Check 
+        echo $diff | tr " " "\n" | grep -E "apiHub/api-config.yaml|apiHub/specs/.+\.(json|yaml)" || echo $?
+        echo $diff | tr " " "\n" | grep -E "apiHub/api-config.yaml|apiHub/specs/.+\.(json|yaml)" 
         specConfigDiff=$(echo $diff | tr " " "\n" | grep -E "apiHub/api-config.yaml|apiHub/specs/.+\.(json|yaml)")
 
         echo "found 2:" $specConfigDiff 
