@@ -30,19 +30,29 @@ jobs:
         $diff = git diff --name-only HEAD^ HEAD
         echo "found:" $diff
 
-        # Check if a file under docs/ or with the .md extension has changed (added, modified, deleted)
-        $SourceDiff = $diff | Where-Object { $_ -match '^apiHub/api-config.yaml'  }
-         echo "found 2:" $SourceDiff
+        # Check if apiHub/api-config.yaml or apiHub/specs/¨.yaml or json updated
+        specConfigDiff=$(echo $diff | tr " " "\n" | grep -E "apiHub/api-config.yaml|apiHub/specs/.+\.(json|yaml)")
 
-        $HasDiff = $SourceDiff.Length -gt 0
-         echo "found 3:" $HasDiff
+        echo "found 2:" $specConfigDiff 
+
+        specConfigHasDiff=$(echo $specConfigDiff | wc -w)
+        echo "found 3:" $specConfigHasDiff "-"" $specHasDiff
+
+        if (( -z $specDiff ))
+        then
+          updateHub=true
+        else
+          updateHub=false
+        fi
+
+        echo "found 4:" $updateHub
 
         # Set the output named "docs_changed"
-        "docs_changed=$HasDiff" >> $env:GITHUB_ENV
+        "updateHub=$updateHub" >> $env:GITHUB_ENV
 
     - name: conditional
-      if: ${{ env.docs_changed }}
+      if: ${{ env.updateHub }}
       run: |
-        echo "-> " $change
+        echo "-> " $updateHub
       env:
-        change: ${{ env.docs_changed }}
+        change: ${{ env.updateHub }}
