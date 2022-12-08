@@ -15,7 +15,6 @@ host: 34.117.38.184.nip.io
 schemes:
   - https
 
-
 basePath: /airports-cicd/v1
 produces:
   - application/json

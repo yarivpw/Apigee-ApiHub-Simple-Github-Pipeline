@@ -16,23 +16,13 @@ jobs:
         fetch-depth: 2
 
     - name: check_file_changed_bash
+      shell: bash {0}
       run: |
         # Diff HEAD with the previous commit
         diff=$(git diff --name-only HEAD^ HEAD)
         echo "found:" $diff
 
-
-    - shell: pwsh
-      id: check_file_changed
-      if: ${{ env.docs_changed }}
-      run: |
-        # Diff HEAD with the previous commit
-        $diff = git diff --name-only HEAD^ HEAD
-        echo "found:" $diff
-
-        # Check 
-        echo $diff | tr " " "\n" | grep -E "apiHub/api-config.yaml|apiHub/specs/.+\.(json|yaml)" || echo $?
-        echo $diff | tr " " "\n" | grep -E "apiHub/api-config.yaml|apiHub/specs/.+\.(json|yaml)" 
+        # Check if spec config changed
         specConfigDiff=$(echo $diff | tr " " "\n" | grep -E "apiHub/api-config.yaml|apiHub/specs/.+\.(json|yaml)")
 
         echo "found 2:" $specConfigDiff 
@@ -48,6 +38,8 @@ jobs:
 
         # Set the output named "docs_changed"
         "updateHub=$updateHub" >> $env:GITHUB_ENV
+
+ 
 
     - name: conditional
       if: ${{ env.updateHub }}
