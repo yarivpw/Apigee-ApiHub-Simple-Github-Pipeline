@@ -35,10 +35,7 @@ jobs:
 
         echo "found 2:" $specConfigDiff 
 
-        specConfigHasDiff=$(echo $specConfigDiff | wc -w)
-        echo "found 3:" $specConfigHasDiff "-"" $specHasDiff
-
-        if (( -z $specDiff ))
+        if (( -z $specConfigDiff ))
         then
           updateHub=true
         else
