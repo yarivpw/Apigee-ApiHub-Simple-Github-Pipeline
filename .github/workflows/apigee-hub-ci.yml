@@ -27,7 +27,7 @@ jobs:
 
         echo "found 2:" $specConfigDiff 
 
-        if (( -z "$specConfigDiff" ))
+        if [ -z "$specConfigDiff" ]
         then
           updateHub=false
         else
@@ -38,7 +38,6 @@ jobs:
 
         # Set the output named "docs_changed"
         echo "updateHub=$updateHub" >> $env:GITHUB_ENV
-
  
 
     - name: conditional
