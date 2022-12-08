@@ -37,12 +37,11 @@ jobs:
         echo "found 4:" $updateHub
 
         # Set the output named "docs_changed"
-        echo "updateHub=$updateHub" >> $env:GITHUB_ENV
+        echo "updateHub=$updateHub" >> $GITHUB_ENV
  
-
     - name: conditional
-      if: ${{ env.updateHub }}
+      #if: ${{ env.updateHub }}
       run: |
-        echo "-> " $updateHub
-      env:
-        change: ${{ env.updateHub }}
+        echo "-> " ${{ env.updateHub }}
+      #env:
+       # change: ${{ env.updateHub }}
