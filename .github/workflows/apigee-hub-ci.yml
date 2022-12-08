@@ -12,14 +12,9 @@ env:
   GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
 jobs:
-  Apigee-Deploy:
+  Apigee-Hub-Deploy:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
-    runs-on: ubuntu-latest
-
-jobs:
-  Apigee-Api-Hub-Deploy:
-    if: "!contains(github.event.head_commit.message, '[skip ci]')"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-lates
 
     steps:
       - uses: actions/checkout@v3
