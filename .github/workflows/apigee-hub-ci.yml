@@ -80,7 +80,7 @@ jobs:
           
       # Generate SA key file from secret variable
       - name: Generate SA key file
-        if: ${{ run_step }}
+        if: ${{ $run_step }}
         run: | 
           echo $GCP_SERVICE_ACCOUNT > sa.json
 
