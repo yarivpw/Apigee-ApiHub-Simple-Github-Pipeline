@@ -43,7 +43,7 @@ jobs:
           else
             echo "Api change"
             echo "updateHub=true" >> $GITHUB_ENV
-            echo "::set-output name=updateHub::true"
+            echo "updateHub=true" >> $GITHUB_OUTPUT
           fi
           
           # Check if Apigee Proxy file(s) changed
@@ -54,7 +54,7 @@ jobs:
           else
             echo "Proxy change"
             echo "updateProxy=true" >> $GITHUB_ENV
-            echo "::set-output name=updateProxy::true"
+            echo "updateProxy=true" >> $GITHUB_OUTPUT
           fi
           
           echo "specConfigDiff=" $specConfigDiff 
@@ -70,7 +70,7 @@ jobs:
 
   Apigee-Proxy-Deploy:
     needs: [Apigee-Commit-Check]
-    if: ${{ env.updateProxy }} 
+    if: ${{ needs.Apigee-Commit-Check.outputs.updateProxy }} 
     runs-on: ubuntu-latest
 
     steps:
