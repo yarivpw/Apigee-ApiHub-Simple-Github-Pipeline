@@ -91,8 +91,8 @@ jobs:
 
 
   Apigee-Hub-Deploy:
-    needs: [Apigee-Commit-Check, Apigee-Proxy-Deploy]
-    if: ${{ needs.Apigee-Commit-Check.outputs.updateHub }} 
+    needs: [Apigee-Proxy-Deploy]
+    #if: ${{ needs.Apigee-Commit-Check.outputs.updateHub }} 
     runs-on: ubuntu-latest
 
     steps:
