@@ -27,12 +27,12 @@ jobs:
           echo $GCP_SERVICE_ACCOUNT > sa.json
 
       # Check if ApiHub config file or specification file changed      
-      - name: check_spec_file_changed
+      - name: check_files_changed
         shell: bash {0}
         run: |
           # Diff HEAD with the previous commit
           diff=$(git diff --name-only HEAD^ HEAD)
-          echo "Files updated in last commit:" $diff
+          echo "Files updated in the last commit:" $diff
 
           # Check if spec file(s) changed
           specConfigDiff=$(echo $diff | tr " " "\n" | grep -E "apiHub/api-config.yaml|apiHub/specs/.+\.(json|yaml)")
@@ -43,9 +43,19 @@ jobs:
           else
             updateHub=true
           fi
-
-          # Set updateHub trigger
+          
+          # Check if Apigee Proxy file(s) changed
+          apiProxyDiff=$(echo $diff | tr " " "\n" | grep -E "apiProxy/apiproxy/.*")
+          if [ -z "$apiProxyDiff" ]
+          then
+            updateProxy=false
+          else
+            updateProxy=true
+          fi
+          
+          # Set deployment triggers
           echo "updateHub=$updateHub" >> $GITHUB_ENV
+          echo "updateProxy=$updateProxy" >> $GITHUB_ENV
 
       # Create/Update API in API Hub  
       - name: update Apigee Api Hub
@@ -53,3 +63,9 @@ jobs:
         run: |
           cd apiHub
           mvn install -Pdev -DprojectId=$APIGEE_ORG -Doptions=create -Dfile=../sa.json --no-transfer-progress
+
+      # Create/Update API in API Mgt  
+      - name: update Apigee Api Hub
+        if: ${{ env.updateProxy }}
+        run: |
+          echo "deploy proxy"
