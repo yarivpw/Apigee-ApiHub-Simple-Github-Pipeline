@@ -4,7 +4,6 @@ name: Apigee API Hub CI with Maven
 on: push
 
 env:
-
   # Default Target Apigee Organization et environment (can be also be dynamically defined in [Set Variables *] steps)
   APIGEE_ORG: bap-emea-apigee-5
   APIGEE_ENV: default-dev
