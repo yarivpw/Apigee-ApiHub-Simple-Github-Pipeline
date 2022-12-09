@@ -14,6 +14,7 @@ jobs:
   Apigee-Commit-Check:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
+    # Map step outputs to a job outputs
     outputs:
       updateHub: ${{ steps.check_files_changed.outputs.updateHub }}
       updateProxy: ${{ steps.check_files_changed.outputs.updateProxy }}
@@ -31,6 +32,7 @@ jobs:
 
       # Check if ApiHub config file or specification file changed      
       - name: check_files_changed
+        id: check_files_changed
         shell: bash {0}
         run: |
           # Diff HEAD with the previous commit
