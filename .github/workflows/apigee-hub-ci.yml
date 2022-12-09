@@ -11,7 +11,7 @@ env:
   GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
 jobs:
-  Apigee-Hub-Deploy:
+  Apigee-Commit-Check:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
 
@@ -43,6 +43,7 @@ jobs:
           else
             echo "Api change"
             echo "updateHub=true" >> $GITHUB_ENV
+            echo "::set-output name=updateHub::true"
           fi
           
           # Check if Apigee Proxy file(s) changed
@@ -53,6 +54,7 @@ jobs:
           else
             echo "Proxy change"
             echo "updateProxy=true" >> $GITHUB_ENV
+            echo "::set-output name=updateProxy::true"
           fi
           
           echo "specConfigDiff=" $specConfigDiff 
@@ -65,8 +67,19 @@ jobs:
           cd apiHub
           mvn install -Pdev -DprojectId=$APIGEE_ORG -Doptions=create -Dfile=../sa.json --no-transfer-progress
 
+
+  Apigee-Proxy-Deploy:
+    needs: [Apigee-Commit-Check]
+    if: ${{ needs.Apigee-Commit-Check.outputs.updateProxy }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
       # Create/Update API in API Mgt  
       - name: update Apigee Proxy
-        if: ${{ env.updateProxy }}
         run: |
-          echo "deploy proxy"
+          echo "deploy proxy" 
+          echo ${{ needs.Apigee-Commit-Check.outputs.updateProxy }}
+
+

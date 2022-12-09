@@ -15,7 +15,6 @@
  limitations under the License.
 -->
 
-
 <ProxyEndpoint name="default">
   <PreFlow name="PreFlow">
     <Response>
