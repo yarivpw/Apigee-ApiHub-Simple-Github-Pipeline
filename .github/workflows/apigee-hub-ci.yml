@@ -99,7 +99,7 @@ jobs:
 
 
   Apigee-Hub-Deploy:
-    needs: [Apigee-Proxy-Deploy]
+    needs: [Apigee-Commit-Check, Apigee-Proxy-Deploy]
     runs-on: ubuntu-latest
 
     steps:
