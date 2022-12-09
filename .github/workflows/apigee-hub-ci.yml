@@ -53,6 +53,10 @@ jobs:
             updateProxy=true
           fi
           
+          echo "specConfigDiff=" $specConfigDiff 
+          echo "apiProxyDiff=" $apiProxyDiff
+          echo "updateHub=" $updateHub " / updateProxy=" $updateProxy
+
           # Set deployment triggers
           echo "updateHub=$updateHub" >> $GITHUB_ENV
           echo "updateProxy=$updateProxy" >> $GITHUB_ENV
