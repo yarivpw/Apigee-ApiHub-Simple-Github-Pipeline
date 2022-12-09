@@ -52,4 +52,4 @@ jobs:
         if: ${{ env.updateHub }}
         run: |
           cd apiHub
-          mvn install -Pdev -DprojectId=$APIGEE_ORG -Doptions=create -Dfile=../sa.json
+          mvn install -Pdev -DprojectId=$APIGEE_ORG -Doptions=create -Dfile=../sa.json --no-transfer-progress
