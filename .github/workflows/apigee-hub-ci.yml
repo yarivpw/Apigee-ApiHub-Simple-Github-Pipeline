@@ -39,27 +39,24 @@ jobs:
 
           if [ -z "$specConfigDiff" ]
           then
-            updateHub=true
+            echo "No Api change"
           else
-            updateHub=false
+            echo "Api change"
+            echo "updateHub=true" >> $GITHUB_ENV
           fi
           
           # Check if Apigee Proxy file(s) changed
           apiProxyDiff=$(echo $diff | tr " " "\n" | grep -E "apiproxy/apiproxy/.*")
           if [ -z "$apiProxyDiff" ]
           then
-            updateProxy=true
+            echo "No proxy change"
           else
-            updateProxy=false
+            echo "Proxy change"
+            echo "updateProxy=true" >> $GITHUB_ENV
           fi
           
           echo "specConfigDiff=" $specConfigDiff 
           echo "apiProxyDiff=" $apiProxyDiff
-          echo "updateHub=" $updateHub " / updateProxy=" $updateProxy
-
-          # Set deployment triggers
-          echo "updateHub=$updateHub" >> $GITHUB_ENV
-          echo "updateProxy=$updateProxy" >> $GITHUB_ENV
 
       # Create/Update API in API Hub  
       - name: update Apigee Api (Hub)
