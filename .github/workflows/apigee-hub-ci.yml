@@ -76,6 +76,9 @@ jobs:
           if [[ -n "${{ needs.Apigee-Commit-Check.outputs.updateProxy }}" ]]
           then 
             echo "run_step=true" >> $GITHUB_ENV
+          else
+            echo "Job not needed; no update in apiProxy folder."
+            echo "Skip all following steps."
           fi
 
       # Generate SA key file from secret variable
@@ -94,20 +97,31 @@ jobs:
 
   Apigee-Hub-Deploy:
     needs: [Apigee-Proxy-Deploy]
-    if: always()
-    #if: ${{ needs.Apigee-Commit-Check.outputs.updateHub }} 
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
 
+      - name: run-step-if
+        run: | 
+          echo "exit if no proxy update"
+          if [[ -n "{{ needs.Apigee-Commit-Check.outputs.updateHub }}" ]]
+          then 
+            echo "run_step=true" >> $GITHUB_ENV
+          else
+            echo "Job not needed; no update in apiHub folder."
+            echo "Skip all following steps."
+          fi
+
       # Generate SA key file from secret variable
       - name: Generate SA key file
+        if: ${{ env.run_step }}
         run: | 
           echo $GCP_SERVICE_ACCOUNT > sa.json
 
       # Create/Update API in API Hub  
       - name: update Apigee Api (Hub)
+        if: ${{ env.run_step }}
         run: |
           cd apiHub
           # mvn install -Pdev -DprojectId=$APIGEE_ORG -Doptions=create -Dfile=../sa.json --no-transfer-progress
