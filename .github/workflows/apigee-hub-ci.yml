@@ -70,7 +70,7 @@ jobs:
 
   Apigee-Proxy-Deploy:
     needs: [Apigee-Commit-Check]
-    if: ${{ needs.Apigee-Commit-Check.outputs.updateProxy }}
+    if: ${{ env.updateProxy }} 
     runs-on: ubuntu-latest
 
     steps:
