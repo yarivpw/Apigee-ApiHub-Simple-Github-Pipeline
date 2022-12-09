@@ -75,7 +75,7 @@ jobs:
           echo "exit if no proxy update"
           if [[ -z "${{ needs.Apigee-Commit-Check.outputs.updateProxy }}" ]]
           then 
-            exit 1
+            exit 0
           fi
           
       # Generate SA key file from secret variable
