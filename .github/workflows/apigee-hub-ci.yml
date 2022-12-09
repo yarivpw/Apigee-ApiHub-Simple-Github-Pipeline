@@ -75,7 +75,7 @@ jobs:
           echo "exit if no proxy update"
           if [[ -n "${{ needs.Apigee-Commit-Check.outputs.updateProxy }}" ]]
           then 
-            echo "run_step="true" >> $GITHUB_ENV
+            echo "run_step=true" >> $GITHUB_ENV
           fi
 
       # Generate SA key file from secret variable
