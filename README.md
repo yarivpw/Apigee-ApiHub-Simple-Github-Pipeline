@@ -9,6 +9,8 @@
 Simple implementation of a CI/CD pipeline for Apigee using GitHub repository, 
 [CI/CD with GitHub](https://docs.GitHub.com/ee/ci/introduction/) and Apigee Maven Plugins.
 
+![GitHub CICD Pipeline overview](./images/project.jpg)<BR>
+
 ### The CICD pipeline includes:
 
 - An Apigee proxy to be deployed in Apigee X/hybrid (Edge/OPSK not supported)
