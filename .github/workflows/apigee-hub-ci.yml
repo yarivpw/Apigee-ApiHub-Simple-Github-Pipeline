@@ -25,11 +25,6 @@ jobs:
           # Checkout as many commits as needed for the diff
           fetch-depth: 2
 
-      # Generate SA key file from secret variable
-      - name: Generate SA key file
-        run: | 
-          echo $GCP_SERVICE_ACCOUNT > sa.json
-
       # Check if ApiHub config file or specification file changed      
       - name: check_files_changed
         id: check_files_changed
@@ -74,6 +69,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      
+      # Generate SA key file from secret variable
+      - name: Generate SA key file
+        run: | 
+          echo $GCP_SERVICE_ACCOUNT > sa.json
 
       # Create/Update API in API Mgt  
       - name: update Apigee Proxy
@@ -91,7 +91,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-  # Create/Update API in API Hub  
+      # Generate SA key file from secret variable
+      - name: Generate SA key file
+        run: | 
+          echo $GCP_SERVICE_ACCOUNT > sa.json
+
+      # Create/Update API in API Hub  
       - name: update Apigee Api (Hub)
         run: |
           cd apiHub
