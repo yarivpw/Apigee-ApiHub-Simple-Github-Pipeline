@@ -75,18 +75,19 @@ jobs:
           echo "exit if no proxy update"
           if [[ -n "${{ needs.Apigee-Commit-Check.outputs.updateProxy }}" ]]
           then 
-            run_step = true
+            echo "run_step="true""" >> $GITHUB_ENV
           fi
-          
+
+        
       # Generate SA key file from secret variable
       - name: Generate SA key file
-        if: ${{ $run_step }}
+        if: ${{ env.run_step }}
         run: | 
           echo $GCP_SERVICE_ACCOUNT > sa.json
 
       # Create/Update API in API Mgt  
       - name: update Apigee Proxy
-        if: ${{ run_step }}
+        if: ${{ env.run_step }}
         run: |
           echo "deploy proxy ? " echo ${{ needs.Apigee-Commit-Check.outputs.updateProxy }}
 
