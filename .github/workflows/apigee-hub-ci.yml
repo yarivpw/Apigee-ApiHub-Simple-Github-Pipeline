@@ -78,13 +78,12 @@ jobs:
       # Create/Update API in API Mgt  
       - name: update Apigee Proxy
         run: |
-          echo "deploy proxy" 
-          echo ${{ needs.Apigee-Commit-Check.outputs.updateProxy }}
+          echo "deploy proxy ? " echo ${{ needs.Apigee-Commit-Check.outputs.updateProxy }}
 
 
 
   Apigee-Hub-Deploy:
-    needs: Apigee-Commit-Check
+    needs: Apigee-Proxy-Deploy
     if: ${{ needs.Apigee-Commit-Check.outputs.updateHub }} 
     runs-on: ubuntu-latest
 
@@ -100,6 +99,6 @@ jobs:
       - name: update Apigee Api (Hub)
         run: |
           cd apiHub
-          mvn install -Pdev -DprojectId=$APIGEE_ORG -Doptions=create -Dfile=../sa.json --no-transfer-progress
+          # mvn install -Pdev -DprojectId=$APIGEE_ORG -Doptions=create -Dfile=../sa.json --no-transfer-progress
 
 
