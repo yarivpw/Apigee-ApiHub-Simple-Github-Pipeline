@@ -46,7 +46,7 @@ jobs:
           fi
           
           # Check if Apigee Proxy file(s) changed
-          apiProxyDiff=$(echo $diff | tr " " "\n" | grep -E "apiproxy/apiproxy/.*")
+          apiProxyDiff=$(echo $diff | tr " " "\n" | grep -E "apiProxy/apiproxy/.*")
           if [ -z "$apiProxyDiff" ]
           then
             echo "No proxy change"
