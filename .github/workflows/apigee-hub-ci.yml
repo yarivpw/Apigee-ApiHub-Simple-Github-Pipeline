@@ -64,12 +64,20 @@ jobs:
 
   Apigee-Proxy-Deploy:
     needs: Apigee-Commit-Check
-    if: ${{ needs.Apigee-Commit-Check.outputs.updateProxy }} 
+    #if: ${{ needs.Apigee-Commit-Check.outputs.updateProxy }} 
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
-      
+
+      - name: exit-if
+        run: | 
+          echo "exit if no proxy update"
+          if [[ -z "${{ needs.Apigee-Commit-Check.outputs.updateProxy }}" ]]
+          then 
+            exit 1
+          fi
+          
       # Generate SA key file from secret variable
       - name: Generate SA key file
         run: | 
