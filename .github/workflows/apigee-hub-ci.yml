@@ -111,7 +111,7 @@ jobs:
       - name: run-step-if
         run: | 
           echo "exit if no proxy update"
-          if [[ -n "{{ needs.Apigee-Commit-Check.outputs.updateHub }}" ]]
+          if [[ -n "${{ needs.Apigee-Commit-Check.outputs.updateHub }}" ]]
           then 
             echo "run_step=true" >> $GITHUB_ENV
           else
