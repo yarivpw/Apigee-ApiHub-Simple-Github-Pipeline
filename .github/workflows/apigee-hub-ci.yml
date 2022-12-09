@@ -70,21 +70,23 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: skip-if
+      - name: run-step-if
         run: | 
           echo "exit if no proxy update"
-          if [[ -z "${{ needs.Apigee-Commit-Check.outputs.updateProxy }}" ]]
+          if [[ -n "${{ needs.Apigee-Commit-Check.outputs.updateProxy }}" ]]
           then 
-            exit 1
+            run_step = true
           fi
           
       # Generate SA key file from secret variable
       - name: Generate SA key file
+        if: ${{ run_step }}
         run: | 
           echo $GCP_SERVICE_ACCOUNT > sa.json
 
       # Create/Update API in API Mgt  
       - name: update Apigee Proxy
+        if: ${{ run_step }}
         run: |
           echo "deploy proxy ? " echo ${{ needs.Apigee-Commit-Check.outputs.updateProxy }}
 
