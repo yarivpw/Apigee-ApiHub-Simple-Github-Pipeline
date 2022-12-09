@@ -39,18 +39,18 @@ jobs:
 
           if [ -z "$specConfigDiff" ]
           then
-            updateHub=false
-          else
             updateHub=true
+          else
+            updateHub=false
           fi
           
           # Check if Apigee Proxy file(s) changed
-          apiProxyDiff=$(echo $diff | tr " " "\n" | grep -E "apiProxy/apiproxy/.*")
+          apiProxyDiff=$(echo $diff | tr " " "\n" | grep -E "apiproxy/apiproxy/.*")
           if [ -z "$apiProxyDiff" ]
           then
-            updateProxy=false
-          else
             updateProxy=true
+          else
+            updateProxy=false
           fi
           
           echo "specConfigDiff=" $specConfigDiff 
