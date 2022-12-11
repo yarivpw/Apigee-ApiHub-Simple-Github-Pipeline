@@ -70,6 +70,10 @@ jobs:
     needs: Apigee-Commit-Check
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: apiProxy
+
     steps:
       - uses: actions/checkout@v3
 
@@ -82,7 +86,6 @@ jobs:
           if [[ -n "${{ needs.Apigee-Commit-Check.outputs.updateProxy }}" ]]
           then 
             echo "run_step=true" >> $GITHUB_ENV
-            cd apiProxy
           else
             echo "Job not needed; no update in apiProxy folder."
             echo "Skip all following steps."
@@ -107,7 +110,6 @@ jobs:
       - name: Install Dependencies
         if: ${{ env.run_step }}
         run: npm install  --no-fund #--silent
-
 
       # Run apigeeLint test + upload artifact (apigeelint-out.html)
       - name: apigeelint
