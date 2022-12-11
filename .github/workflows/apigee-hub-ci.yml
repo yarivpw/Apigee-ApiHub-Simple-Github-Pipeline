@@ -9,6 +9,12 @@ env:
   APIGEE_ENV: default-dev
   TEST_HOST: 34.117.38.184.nip.io
   GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+  
+  GIT_BRANCH: ''
+  AUTHOR_EMAIL: ''
+  APIGEE_DEPLOYMENT_SUFFIX: ''
+
+
 
 jobs:
   Apigee-Commit-Check:
@@ -60,7 +66,6 @@ jobs:
 
 
 
-
   Apigee-Proxy-Deploy:
     needs: Apigee-Commit-Check
     runs-on: ubuntu-latest
@@ -82,11 +87,6 @@ jobs:
             echo "Skip all following steps."
           fi
 
-      # Generate SA key file from secret variable
-      - name: Generate SA key file
-        if: ${{ env.run_step }}
-        run: | 
-          echo $GCP_SERVICE_ACCOUNT > sa.json
 
       # Create/Update API in API Mgt  
       - name: update Apigee Proxy
@@ -94,11 +94,134 @@ jobs:
         run: |
           echo "deploy proxy ? " echo ${{ needs.Apigee-Commit-Check.outputs.updateProxy }}
 
+      # Create Dependencies (npm) Cache 
+      - name: Cache node modules
+        if: ${{ env.run_step }}
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` 
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
 
+      # Install dependencies (npm)
+      - name: Install Dependencies
+        if: ${{ env.run_step }}
+        run: npm install --silent --no-fund
+
+
+      # Run apigeeLint test + upload artifact (apigeelint-out.html)
+      - name: apigeelint
+        if: ${{ env.run_step }}
+        run: ./node_modules/apigeelint/cli.js -s ./apiproxy -f html.js -e PO013,PO025
+        # > ./apigeelint-out.html
+
+      - name: Archive Apigeelint results
+        if: ${{ env.run_step }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: apigeelint-report
+          path: ./apigeelint-out.html
+          retention-days: 5
+
+
+  # Run eslint test + upload artifact (eslint-out.html)
+      - name: eslint
+        if: ${{ env.run_step }}
+        run : ./node_modules/eslint/bin/eslint.js -c ./.eslintrc-jsc.yml --format html ./apiproxy/resources/jsc > ./eslint-out.html
+
+      - name: Archive esLint results
+        if: ${{ env.run_step }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: eslint-report
+          path: ./eslint-out.html
+          retention-days: 5
+
+
+  # Run JS Mocha test + upload artifact (coverage/index.html)
+      - name: mocha
+        if: ${{ env.run_step }}
+        run: ./node_modules/nyc/bin/nyc.js --reporter=html --reporter=text ./node_modules/mocha/bin/_mocha ./test/unit
+  
+      - name: Archive Mocha results
+        if: ${{ env.run_step }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: mocha-report
+          path:  ./coverage/index.html
+          retention-days: 5
+
+
+      # Setup Maven & Maven Cache
+      - name: Set up JDK 1.8
+        if: ${{ env.run_step }}
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Cache the Maven packages to speed up build
+        if: ${{ env.run_step }}
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2   
+
+      # Generate SA key file from secret variable
+      - name: Generate SA key file
+        if: ${{ env.run_step }}
+        run: | 
+          echo $GCP_SERVICE_ACCOUNT > sa.json
+
+  
+  # Package & Deploy Apigee proxy (Apigee [Deploy] Maven plugin)
+      - name: mvn package
+        if: ${{ env.run_step }}
+        run: mvn process-resources -Pgoogleapi -Dcommit=$GIT_COMMIT -Dbranch=$GIT_BRANCH -Dauthor=$AUTHOR_EMAIL -Ddeployment.suffix=$APIGEE_DEPLOYMENT_SUFFIX
+
+      - name: mvn config
+        if: ${{ env.run_step }}
+        run: mvn apigee-enterprise:configure -q -Pgoogleapi -Dorg=$APIGEE_ORG -Denv=$APIGEE_ENV  -Ddeployment.suffix=$APIGEE_DEPLOYMENT_SUFFIX 
+
+      - name: mvn deploy proxy xhybrid
+        if: ${{ env.run_step }}
+        run: mvn apigee-enterprise:deploy -q -Pgoogleapi -Denv=$APIGEE_ENV -Dsa=sa.json -Dorg=$APIGEE_ORG -Ddeployment.suffix=$APIGEE_BUILD_DEPLOYMENT_SUFFIX 
+
+
+
+  # Run Integration testing (Apickli) + upload artifact (cucumber_report.html)
+      - name: apickli
+        if: ${{ env.run_step }}
+        run: |
+          # update apickli config file (init.js) with API hostname and base path
+          export API_BASEPATH="/airports-cicd/v1"
+          sed -i "s@api_basepath@$API_BASEPATH@g" ./test/integration/features/support/init.js
+          sed -i "s@organization_hostname@$TEST_HOST@g" ./test/integration/features/support/init.js
+
+          # NODE_TLS_REJECT_UNAUTHORIZED required to support self signed certificate
+          # export NODE_TLS_REJECT_UNAUTHORIZED=0
+
+          node ./node_modules/.bin/cucumber-js  ./test/$PROXY_NAME/integration --format json:./report.json
+          node ./test/integration/index.js
+
+      - name: Archive Apickli results
+        if: ${{ env.run_step }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: apickli-report
+          path: ./cucumber_report.html
+          retention-days: 5
 
 
 
   Apigee-Hub-Deploy:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     needs: [Apigee-Commit-Check, Apigee-Proxy-Deploy]
     runs-on: ubuntu-latest
 
