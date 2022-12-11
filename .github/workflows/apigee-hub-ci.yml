@@ -40,7 +40,7 @@ jobs:
           diff=$(git diff --name-only HEAD^ HEAD)
           echo "Files updated in the last commit:" $diff
 
-          # Check if spec file(s) changed
+          # Check if **SPEC** file(s) changed
           specConfigDiff=$(echo $diff | tr " " "\n" | grep -E "apiHub/api-config.yaml|apiHub/specs/.+\.(json|yaml)")
 
           if [ -z "$specConfigDiff" ]
@@ -52,7 +52,7 @@ jobs:
             echo "updateHub=true" >> $GITHUB_OUTPUT
           fi
           
-          # Check if Apigee Proxy file(s) changed
+          # Check if ** PROXY ** file(s) changed
           apiProxyDiff=$(echo $diff | tr " " "\n" | grep -E "apiProxy/apiproxy/.*")
           if [ -z "$apiProxyDiff" ]
           then
