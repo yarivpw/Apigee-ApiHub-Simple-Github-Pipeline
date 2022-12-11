@@ -129,7 +129,8 @@ jobs:
   # Run eslint test + upload artifact (eslint-out.html)
       - name: eslint
         if: ${{ env.run_step }}
-        run : ./node_modules/eslint/bin/eslint.js -c ./test/eslint/.eslintrc-jsc.yml --format html ./apiproxy/resources/jsc > ./eslint-out.html
+        run : ./node_modules/eslint/bin/eslint.js -c ./test/eslint/.eslintrc-jsc.yml --format html ./apiproxy/resources/jsc 
+        #> ./eslint-out.html
 
       - name: Archive esLint results
         if: ${{ env.run_step }}
