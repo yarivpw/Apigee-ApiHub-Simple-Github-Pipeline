@@ -82,17 +82,11 @@ jobs:
           if [[ -n "${{ needs.Apigee-Commit-Check.outputs.updateProxy }}" ]]
           then 
             echo "run_step=true" >> $GITHUB_ENV
+            cd apiProxy
           else
             echo "Job not needed; no update in apiProxy folder."
             echo "Skip all following steps."
           fi
-
-
-      # Create/Update API in API Mgt  
-      - name: update Apigee Proxy
-        if: ${{ env.run_step }}
-        run: |
-          echo "deploy proxy ? " echo ${{ needs.Apigee-Commit-Check.outputs.updateProxy }}
 
       # Create Dependencies (npm) Cache 
       - name: Cache node modules
