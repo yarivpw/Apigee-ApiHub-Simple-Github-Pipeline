@@ -130,7 +130,7 @@ jobs:
       - name: eslint
         if: ${{ env.run_step }}
         run : |
-          pwd
+          ESLINT_NO_DEV_ERRORS=true
           ./node_modules/eslint/bin/eslint.js -c ./.eslintrc-jsc.yml --format html ./apiproxy/resources/jsc 
         #> ./eslint-out.html
 
