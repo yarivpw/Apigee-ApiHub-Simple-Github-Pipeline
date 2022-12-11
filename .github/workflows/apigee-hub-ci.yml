@@ -106,7 +106,7 @@ jobs:
       # Install dependencies (npm)
       - name: Install Dependencies
         if: ${{ env.run_step }}
-        run: npm install --silent --no-fund
+        run: npm install  --no-fund #--silent
 
 
       # Run apigeeLint test + upload artifact (apigeelint-out.html)
