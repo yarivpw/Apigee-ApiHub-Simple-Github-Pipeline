@@ -114,29 +114,28 @@ jobs:
       # Run apigeeLint test + upload artifact (apigeelint-out.html)
       - name: apigeelint
         if: ${{ env.run_step }}
-        run: ./node_modules/apigeelint/cli.js -s ./apiproxy -f html.js -e PO013,PO025
-        # > ./apigeelint-out.html
+        run: ./node_modules/apigeelint/cli.js -s ./apiproxy -f html.js -e PO013,PO025 > ./apigeelint-out.html
 
       - name: Archive Apigeelint results
         if: ${{ env.run_step }}
         uses: actions/upload-artifact@v2
         with:
           name: apigeelint-report
-          path: ./apigeelint-out.html
+          path: ./apiProxy/apigeelint-out.html
           retention-days: 5
 
 
   # Run eslint test + upload artifact (eslint-out.html)
       - name: eslint
         if: ${{ env.run_step }}
-        run : ./node_modules/eslint/bin/eslint.js -c ./.eslintrc-jsc.yml --format html ./apiproxy/resources/jsc > ./eslint-out.html || true
+        run : ./node_modules/eslint/bin/eslint.js -c ./test/eslint/.eslintrc-jsc.yml --format html ./apiproxy/resources/jsc > ./eslint-out.html || true
 
       - name: Archive esLint results
         if: ${{ env.run_step }}
         uses: actions/upload-artifact@v2
         with:
           name: eslint-report
-          path: ./eslint-out.html
+          path: ./apiProxy/eslint-out.html
           retention-days: 5
 
 
@@ -150,7 +149,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: mocha-report
-          path:  ./coverage/index.html
+          path:  ./apiProxy/coverage/index.html
           retention-days: 5
 
 
@@ -211,7 +210,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: apickli-report
-          path: ./cucumber_report.html
+          path: ./apiProxy/cucumber_report.html
           retention-days: 5
 
 
