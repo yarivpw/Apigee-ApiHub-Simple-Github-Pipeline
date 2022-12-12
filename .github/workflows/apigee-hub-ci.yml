@@ -251,5 +251,5 @@ jobs:
       - name: update Apigee Api (Hub)
         if: ${{ env.run_step }}
         run: |
-          mvn install -Pdev -DprojectId=$APIGEE_ORG -Doptions=create -Dfile=sa.json --no-transfer-progress
+          mvn install -Pdev -DprojectId=$APIGEE_ORG -Doptions=sync -Dfile=sa.json --no-transfer-progress
 
