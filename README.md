@@ -27,3 +27,10 @@ Simple implementation of a CI/CD pipeline for Apigee using GitHub repository,
 
 
 ## Work in Progress...
+
+Demo scenario
+
+  - Step 1   (main branch): deploy API Proxy and create API v1 into Apigee API Hub
+  - Step 1.1 (main branch): deploy new API Proxy release with no change on API Specification
+  - Step 2   (main branch): deploy new API Proxy release and publish API v1.1 into Apigee API Hub
+  - Step 3   (main branch): publish API v2 into Apigee API Hub, in "Design" Status

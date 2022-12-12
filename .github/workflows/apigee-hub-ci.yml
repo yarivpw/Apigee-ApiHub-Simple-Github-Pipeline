@@ -94,7 +94,7 @@ jobs:
       # Create Dependencies (npm) Cache 
       - name: Cache node modules
         if: ${{ env.run_step }}
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
         with:
@@ -118,7 +118,7 @@ jobs:
 
       - name: Archive Apigeelint results
         if: ${{ env.run_step }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: apigeelint-report
           path: ./apiProxy/apigeelint-out.html
@@ -132,7 +132,7 @@ jobs:
 
       - name: Archive esLint results
         if: ${{ env.run_step }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: eslint-report
           path: ./apiProxy/eslint-out.html
@@ -146,7 +146,7 @@ jobs:
   
       - name: Archive Mocha results
         if: ${{ env.run_step }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: mocha-report
           path:  ./apiProxy/coverage/index.html
@@ -207,7 +207,7 @@ jobs:
 
       - name: Archive Apickli results
         if: ${{ env.run_step }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: apickli-report
           path: ./apiProxy/cucumber_report.html

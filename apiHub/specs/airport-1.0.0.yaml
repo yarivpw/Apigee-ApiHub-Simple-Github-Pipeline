@@ -19,6 +19,7 @@ basePath: /airports-cicd/v1
 produces:
   - application/json
 
+  
 paths:
   /airports:
     get:

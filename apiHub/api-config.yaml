@@ -48,13 +48,6 @@ data:
              filename: airport-1.0.0.yaml
              mimeType: "application/x.openapi"
              sourceURI: "file://./specs/airport-1.0.0.yaml"
-   - metadata:
-       name: "200"
-       annotations:
-         apihub-end-of-life-type: apihub-unknown
-     data:
-       displayName: 2.0.0
-       state: design
  deployments:
    - metadata:
        name: prod
@@ -67,7 +60,7 @@ data:
        apiSpecRevision: 100/specs/airport-1.0.0yaml@latest
        endpointURI: 34.117.38.184.nip.io
        externalChannelURI: https://bap-emea-apigee-5-cltest.apigee.io
-       intendedAudience: The production version of Aitports-CICD external customer-facing API
+       intendedAudience: The development version of Airports-CICD API
        accessGuidance: All access is self-service through our public developer portal. Visit the site to self-manage access.
  artifacts:
    - kind: ReferenceList
@@ -86,7 +79,7 @@ data:
            displayName: Performance dashboard
            category: apihub-other
            resource: ""
-           uri: https://apigee.google.com/organizations/apigee-migration-cust/analytics/proxy-performance
+           uri: https://apigee.google.com/organizations/bap-emea-apigee-5/analytics/proxy-performance
    - kind: ReferenceList
      metadata:
        name: apihub-dependencies
@@ -94,13 +87,8 @@ data:
        displayName: ""
        description: Defines a list of dependencies
        references:
-         - id: cloud-sql
-           displayName: Cloud SQL
-           category: apihub-other
-           resource: ""
-           uri: https://cloud.google.com/sql/docs/postgres
          - id: gcp-iam
            displayName: GCP IAM
            category: apihub-other
            resource: ""
-           uri: https://console.cloud.google.com/apigee/api-registry/apis/iam/overview?project=apihub-demo
+           uri: https://console.cloud.google.com/apigee/api-registry/apis/iam/overview?project=bap-emea-apigee-5
