@@ -28,7 +28,7 @@ metadata:
    apihub-primary-contact-description: Apigee BAP demo builder team 
 data:
  displayName: Airports cicd
- description: "This Airports-CICD API is meant to show how an API description document can have a revision history as well as a set of deployments. \n\nThings to check out:\n- History tab to see how the revisions to the OpenAPI document over time\n- Deployments view, to understand which revision is in use where\n- Versions view, to have a clear off all API versions and status."
+ description: "This Airports-CICD API is meant to show how an API description document can have a revision history as well as a set of deployments. \n\nThings to check out:\n- History tab to see how the revisions to the OpenAPI document over time\n- Deployments view, to understand which revision is in use where\n- Versions view, to have a clear view off all API versions and status."
  recommendedDeployment: develop
  availability: NONE
  versions:
