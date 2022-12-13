@@ -38,7 +38,7 @@ data:
          apihub-end-of-life-type: apihub-unknown
      data:
        displayName: 1.0.0
-       state: design
+       state: develop
        specs:
          - metadata:
              name: airport-1.0.0yaml
@@ -48,6 +48,20 @@ data:
              filename: airport-1.0.0.yaml
              mimeType: "application/x.openapi"
              sourceURI: "file://./specs/airport-1.0.0.yaml"
+ deployments:
+   - metadata:
+       name: dev
+       labels:
+         apihub-gateway: apihub-google-cloud-apigee
+       annotations:
+         apihub-external-channel-name: API portal (public)
+     data:
+       displayName: dev
+       apiSpecRevision: 100/specs/airport-1.0.0yaml@latest
+       endpointURI: 34.117.38.184.nip.io
+       externalChannelURI: https://bap-emea-apigee-5-cltest.apigee.io
+       intendedAudience: The development version of Airports-CICD API
+       accessGuidance: All access is self-service through our public developer portal. Visit the site to self-manage access.
  artifacts:
    - kind: ReferenceList
      metadata:
