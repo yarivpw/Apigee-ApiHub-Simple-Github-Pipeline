@@ -141,10 +141,36 @@ In **"env"** section (workflow level), change `APIGEE_ORG`, `APIGEE_ENV` and `TE
 
 ### Stage 1
 
-1.  Update the **apiHub** > **specs** > **airport-1.0.0.yaml** file: change ** host** by your Apigee environment hostname.<BR>
+1.  Update the **apiHub / specs / airport-1.0.0.yaml** file: change ** host** by your Apigee environment hostname.<BR>
 2. Save
 3. Commit, Push
 
 Use the GitHub UI to monitor your pipeline execution:
 
 - Go to your GitHub repository > **Actions** (tab). You can see your workflow running.
+
+![GitHub CICD Pipeline overview](./images/step1.1.jpg)
+
+- Click on it to see execution detail. In list of jobs, click on **Apigee-Deploy**.
+
+![GitHub CICD Pipeline overview](./images/step1.2.jpg)
+
+  - Job **Apigee-Commit-Check** checks file commited to trigger following jobs
+  - Job **Apigee-Proxy-Deploy** is triggered but all steps are skipped in this demo stage as Apigee proxy were not commited
+  - Job **Apigee-Hub-Publish** is triggered to publish Api version 1.0.0 in design status
+
+  - Open API Hub service console and verify that the api was published in **design** status, with no Deployment.
+
+  ![GitHub CICD Pipeline overview](./images/step1.3.jpg)
+
+### Stage 2
+
+1.  Copy the **demo_file / specs / airport-1.0.1.yaml** to **apiHub / specs** folder
+2.  Update the **apiHub / specs / airport-1.0.1.yaml** file: change **host** by your Apigee environment hostname.
+3.  Update the **apiProxy / apiproxy / proxies / default.xml** file: add a blank line to simulate
+2. Save
+3. Commit, Push
+
+** > **specs** > **airport-1.0.0.yaml** file: change ** host** by your Apigee environment hostname.
+2. Save
+3. Commit, Push
