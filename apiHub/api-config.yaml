@@ -28,7 +28,7 @@ metadata:
    apihub-primary-contact-description: Apigee BAP demo builder team 
 data:
  displayName: Airports cicd
- description: "This Airports-CICD API is meant to show how an API description document can have a revision history as well as a set of deployments. \n\nThings to check out:\n- History tab to see how the revisions to the OpenAPI document over time\n- Deployments view, to understand which revision is in use where\n- Versions view, to have a clear off all API versions and status."
+ description: "This Airports-CICD API is meant to show how an API description document can have a revision history as well as a set of deployments. \n\nThings to check out:\n- History tab to see how the revisions to the OpenAPI document over time\n- Deployments view, to understand which revision is in use where\n- Versions view, to have a clear view off all API versions and status."
  recommendedDeployment: dev
  availability: NONE
  versions:
@@ -38,7 +38,7 @@ data:
          apihub-end-of-life-type: apihub-unknown
      data:
        displayName: 1.0.0
-       state: design
+       state: develop
        specs:
          - metadata:
              name: airport-1.0.0yaml
@@ -48,6 +48,20 @@ data:
              filename: airport-1.0.0.yaml
              mimeType: "application/x.openapi"
              sourceURI: "file://./specs/airport-1.0.0.yaml"
+ deployments:
+   - metadata:
+       name: dev
+       labels:
+         apihub-gateway: apihub-google-cloud-apigee
+       annotations:
+         apihub-external-channel-name: API portal (public)
+     data:
+       displayName: dev
+       apiSpecRevision: 100/specs/airport-1.0.0yaml@latest
+       endpointURI: 34.117.38.184.nip.io
+       externalChannelURI: https://bap-emea-apigee-5-cltest.apigee.io
+       intendedAudience: The development version of Airports-CICD API
+       accessGuidance: All access is self-service through our public developer portal. Visit the site to self-manage access.
  artifacts:
    - kind: ReferenceList
      metadata:
