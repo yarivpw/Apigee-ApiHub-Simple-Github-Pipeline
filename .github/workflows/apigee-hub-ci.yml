@@ -215,7 +215,7 @@ jobs:
 
 
 
-  Apigee-Hub-Deploy:
+  Apigee-Hub-Publish:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     needs: [Apigee-Commit-Check, Apigee-Proxy-Deploy]
     runs-on: ubuntu-latest
@@ -248,7 +248,7 @@ jobs:
           echo $GCP_SERVICE_ACCOUNT > sa.json
 
       # Create/Update API in API Hub  
-      - name: update Apigee Api (Hub)
+      - name: Sync Apigee Api (Hub)
         if: ${{ env.run_step }}
         run: |
           mvn install -Pdev -DprojectId=$APIGEE_ORG -Doptions=sync -Dfile=sa.json --no-transfer-progress
