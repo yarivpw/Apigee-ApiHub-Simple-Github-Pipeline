@@ -141,7 +141,7 @@ The pipeline illustrates SDLC for both OAS file and corresponding Apigee proxy (
 > Note: 
 > 
 >  - the **demo_files** folder contains specification files and Api Hub configuration files needed for each stages.
->  - Update **demo_files/apiHub/_api_config * .yaml** files to add your own reference to your environment component (endpoint hostname, developer portal URL, Apigee dashboard URL, ...)
+>  - Update **demo_files/apiHub/_api_config * .yaml** files to add your own references to your environment components (endpoint hostname, developer portal URL, Apigee dashboard URL, ...)
 
 <BR>
 
