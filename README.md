@@ -169,6 +169,13 @@ Use the GitHub UI to monitor your pipeline execution:
 2. Save
 3. Commit, Push
 
+  - Job **Apigee-Commit-Check** checks file commited to trigger following jobs
+  - Job **Apigee-Proxy-Deploy** is triggered and deploy Apigee proxy
+  - Job **Apigee-Hub-Publish** is triggered to publish Api version 1.0.0 in develop status
+  - Open API Hub service console and verify that the api was published in **develop** status, with one Deployment.
+
+  ![GitHub CICD Pipeline overview](./images/step1.3.jpg)
+
 
 ### Stage 3
 
