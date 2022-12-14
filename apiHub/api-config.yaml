@@ -64,6 +64,13 @@ data:
             filename: airport-2.0.0.yaml
             mimeType: "application/x.openapi"
             sourceURI: "file://./specs/airport-1.0.1.yaml"
+   - metadata:
+       name: "200"
+       annotations:
+         apihub-end-of-life-type: apihub-unknown
+     data:
+       displayName: 2.0.0
+       state: design
  deployments:
    - metadata:
        name: dev
@@ -109,4 +116,3 @@ data:
            category: apihub-other
            resource: ""
            uri: https://console.cloud.google.com/apigee/api-registry/apis/iam/overview?project=bap-emea-apigee-5
-           

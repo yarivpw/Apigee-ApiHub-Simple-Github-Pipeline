@@ -190,7 +190,7 @@ You should see:
 
 Open API Hub service console and verify that the API 1.0.0 was published in **Develop** status, with one Deployment.
 
-  ![GitHub CICD Pipeline overview](./images/step1.3.jpg)
+  ![GitHub CICD Pipeline overview](./images/step2.1.jpg)
 
 
 
@@ -213,7 +213,7 @@ You should see:
 
 Open API Hub service console and verify that the API 1.0.1 was published in **Develop** status, with one Deployment, and API 1.0.0 was **retired**.
 
- ![GitHub CICD Pipeline overview](./images/step1.3.jpg)
+ ![GitHub CICD Pipeline overview](./images/step3.1.jpg)
 
 <BR>
 
