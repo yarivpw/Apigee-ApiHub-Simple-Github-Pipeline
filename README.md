@@ -140,8 +140,10 @@ Using your favorite IDE...
 
 - Update the **.github/workflows/apigee-hub.yml** file.<BR>
 In **"env"** section (workflow level), change `APIGEE_ORG`, `APIGEE_ENV` and `TEST_HOST` values by your target Apigee organization values.
+<BR>
 
-### Stage 1
+
+### Stage 1: version 1.0.0 (Design Status)
 
 1.  Update the **apiHub / specs / airport-1.0.0.yaml** file: change ** host** by your Apigee environment hostname.<BR>
 2. Save
@@ -152,34 +154,91 @@ Use the GitHub UI to monitor your pipeline execution:
 - Go to your GitHub repository > **Actions** (tab). You can see your workflow running.
 
 ![GitHub CICD Pipeline overview](./images/step1.1.jpg)
+<BR>
 
-- Click on it to see execution detail. In list of jobs, click on **Apigee-Deploy**.
+- Click on it to see execution detail. In list of jobs, click on the job you want to see logs.
 
 ![GitHub CICD Pipeline overview](./images/step1.2.jpg)
+<BR>
 
-  - Job **Apigee-Commit-Check** checks file commited to trigger following jobs
-  - Job **Apigee-Proxy-Deploy** is triggered but all steps are skipped in this demo stage as Apigee proxy were not commited
-  - Job **Apigee-Hub-Publish** is triggered to publish Api version 1.0.0 in design status
-  - Open API Hub service console and verify that the api was published in **design** status, with no Deployment.
+You should see:
+  - Job **Apigee-Commit-Check** checks commited files to trigger following jobs
+  - Job **Apigee-Proxy-Deploy** is triggered but all steps are skipped in this demo stage as Apigee proxy was not commited
+  - Job **Apigee-Hub-Publish** is triggered to publish API version 1.0.0 in design status
+
+<BR>
+Open API Hub service console and verify that the API 1.0.0 was published in **design** status, with no Deployment.
 
   ![GitHub CICD Pipeline overview](./images/step1.3.jpg)
+<BR>
 
-### Stage 2
 
-1.  Replace content of file **apiHub / api-config.yaml** file with content of file **demo_file / apiHub / 2_api-config-dev-1.0.yaml**.<BR>
-4.  Copy folders  **demo_file / apiProxy / apiproxy** and **demo_file / apiProxy / test** to **apiProxy** folder
-2. Save
+
+### Stage 2: : version 1.0.0 (Develop Status, Deployed)
+
+1.  Replace content of file **apiHub / api-config.yaml** file with content of file **demo_file / apiHub / 2_api-config-dev-1.0.yaml**.
+2.  Copy folders  **demo_file / apiProxy / apiproxy** and **demo_file / apiProxy / test** to **apiProxy** folder
 3. Commit, Push
 
-  - Job **Apigee-Commit-Check** checks file commited to trigger following jobs
-  - Job **Apigee-Proxy-Deploy** is triggered and deploy Apigee proxy
-  - Job **Apigee-Hub-Publish** is triggered to publish Api version 1.0.0 in develop status
-  - Open API Hub service console and verify that the api was published in **develop** status, with one Deployment.
+<BR>
+Use the GitHub UI to monitor your pipeline execution:
+
+You should see:
+  - Job **Apigee-Commit-Check** checks commited files to trigger following jobs
+  - Job **Apigee-Proxy-Deploy** is triggered and deploy the Apigee proxy
+  - Job **Apigee-Hub-Publish** is triggered and publish API version 1.0.0 in develop status
+
+Open API Hub service console and verify that the API 1.0.0 was published in **Develop** status, with one Deployment.
 
   ![GitHub CICD Pipeline overview](./images/step1.3.jpg)
 
 
-### Stage 3
+
+
+### Stage 3: version 1.0.1 (Develop Status, Deployed), version 1.0.0 retired
 
 1.  Copy the **demo_file / apiHub / specs / airport-1.0.1.yaml** to **apiHub / specs** folder
 2.  Update the **apiHub / specs / airport-1.0.1.yaml** file: change **host** by your Apigee environment hostname.
+3. Save
+4.  Replace content of file **apiHub / api-config.yaml** file with content of file **demo_file / apiHub / 3_api-config-dev-1.1.yaml**.
+5. Commit, Push
+
+<BR>
+Use the GitHub UI to monitor your pipeline execution:
+
+You should see:
+  - Job **Apigee-Commit-Check** checks commited files to trigger following jobs
+  - Job **Apigee-Proxy-Deploy** is triggered but all steps are skipped in this demo stage as Apigee proxy was not updated
+  - Job **Apigee-Hub-Publish** is triggered and publish API version 1.0.1 in Develop status, and API 1.0.0 in Retired status
+
+Open API Hub service console and verify that the API 1.0.1 was published in **Develop** status, with one Deployment, and API 1.0.0 was **retired**.
+
+ ![GitHub CICD Pipeline overview](./images/step1.3.jpg)
+
+<BR>
+
+
+
+
+### Stage 4: version 1.0.1 (Develop Status, Deployed), version 1.0.0 retired, version 2.0.0 (Design Status)
+
+1.  Copy the **demo_file / apiHub / specs / airport-2.0.0.yaml** to **apiHub / specs** folder
+2.  Update the **apiHub / specs / airport-2.0.0.yaml** file: change **host** by your Apigee environment hostname
+3. Save
+4. Replace content of file **apiHub / api-config.yaml** file with content of file **demo_file / apiHub / 4_api-config-design-2.0.yaml**
+5. Commit, Push
+
+<BR>
+Use the GitHub UI to monitor your pipeline execution:
+
+You should see:
+  - Job **Apigee-Commit-Check** checks commited files to trigger following jobs
+  - Job **Apigee-Proxy-Deploy** is triggered but all steps are skipped in this demo stage as Apigee proxy was not updated  
+  - Job **Apigee-Hub-Publish** is triggered and publish Api version 2.0.0 in design status
+
+
+ Open API Hub service console and verify that the API 1.0.1 was published in **Develop** status, with one Deployment, and API 1.0.0 was **retired**, and API 2.0.0 was in **Design**.
+
+  ![GitHub CICD Pipeline overview](./images/step1.3.jpg)
+
+<BR>
