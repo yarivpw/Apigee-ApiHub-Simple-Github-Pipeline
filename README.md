@@ -125,20 +125,23 @@ Add GitHub secrets `GCP_SERVICE_ACCOUNT`, to store your Apigee User ID and passw
 
 ### Demo scenario
 
-The pipeline illustrates SDLC for both OAS file and corresponding Apigee proxy. 
+The pipeline illustrates SDLC for both OAS file and corresponding Apigee proxy (airport-cicd). 
 
 4 steps: 
 
-  - Stage 1: New specification version 1.0.0 is in `design` stage
-  - Stage 2: Specification version 1.0.0 is in `develop` stage and deployed (Apigee proxy is deployed)
-  - Stage 3: New specification version 1.0.1 is in `develop` stage, but updated (Apigee proxy is updated). Version 1.0.0 is retired
-  - Stage 4: New specification version 2.0.0 is in `design` stage
+  - Stage 1: New specification version 1.0.0, API is in **design** stage
+  - Stage 2: Specification version 1.0.0, API is in **develop** stage and deployed (Apigee proxy is deployed)
+  - Stage 3: New specification version 1.0.1, API is in **develop** stage, but updated (Apigee proxy is updated). Version 1.0.0 is **retired**
+  - Stage 4: New specification version 2.0.0 in **design** stage
 
 ![GitHub CICD Pipeline overview](./images/api-sdlc.jpg)
 
 <BR>
 
-> Note: the **demo_files** folder contains specification files and Api Hub configuration files needed for each stages.
+> Note: 
+> 
+>  - the **demo_files** folder contains specification files and Api Hub configuration files needed for each stages.
+>  - Update **demo_files/apiHub/_api_config * .yaml** files to add your own reference to your environment component (endpoint hostname, developer portal URL, Apigee dashboard URL, ...)
 
 <BR>
 

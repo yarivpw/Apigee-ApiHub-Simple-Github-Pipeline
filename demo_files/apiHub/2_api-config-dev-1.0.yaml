@@ -91,4 +91,4 @@ data:
            displayName: GCP IAM
            category: apihub-other
            resource: ""
-           uri: https://console.cloud.google.com/apigee/api-registry/apis/iam/overview?project=bap-emea-apigee-5
+           uri: https://console.cloud.google.com/apigee/api-registry/apis/iam/overview
