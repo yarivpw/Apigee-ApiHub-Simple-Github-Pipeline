@@ -1,7 +1,6 @@
 # Apigee-ApiHub-Simple-Github-Pipeline
 
 [![Generic badge](https://img.shields.io/badge/status-beta-yellow.svg)](https://shields.io/)
-[![Generic badge](https://img.shields.io/badge/status-work--in--progress-important.svg)](https://shields.io/) 
 
 
 **This is not an official Google product.**<BR>This implementation is not an official Google product, nor is it part of an official Google product. Support is available on a best-effort basis via GitHub.
