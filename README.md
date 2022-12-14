@@ -169,6 +169,7 @@ Use the GitHub UI to monitor your pipeline execution:
 2. Save
 3. Commit, Push
 
+
 ### Stage 3
 
 1.  Copy the **demo_file / apiHub / specs / airport-1.0.1.yaml** to **apiHub / specs** folder
