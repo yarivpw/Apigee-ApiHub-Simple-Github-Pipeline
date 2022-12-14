@@ -10,7 +10,7 @@
 ## Goal
 
 Simple implementation of a CI/CD pipeline for Apigee using GitHub repository, 
-[CI/CD with GitHub](https://docs.GitHub.com/ee/ci/introduction/) and Apigee Maven Plugins.
+[CI/CD with GitHub](https://docs.GitHub.com/ee/ci/introduction/), Apigee Maven Plugins and [Apigee API hub](https://cloud.google.com/apigee/docs/api-hub/what-is-api-hub).
 
 
 ### The CICD pipeline includes:
