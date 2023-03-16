@@ -34,6 +34,7 @@ Simple implementation of a CI/CD pipeline for Apigee using GitHub repository,
 
 ![GitHub CICD Pipeline overview](./images/project.jpg)
 
+    
 3 jobs:
    - Detect what has changed (proxy or specification)
    - Deploy proxy to Apigee if it has changed
