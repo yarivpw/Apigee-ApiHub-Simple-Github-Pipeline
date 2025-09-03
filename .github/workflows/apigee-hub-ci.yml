@@ -26,7 +26,7 @@ jobs:
       updateProxy: ${{ steps.check_files_changed.outputs.updateProxy }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           # Checkout as many commits as needed for the diff
           fetch-depth: 2
@@ -75,7 +75,7 @@ jobs:
         working-directory: apiProxy
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       # Determine if allsteps in this job must be skipped
       # Currently it is not possible to early-exit the job with "success" status
@@ -94,7 +94,7 @@ jobs:
       # Create Dependencies (npm) Cache 
       - name: Cache node modules
         if: ${{ env.run_step }}
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         env:
           cache-name: cache-node-modules
         with:
@@ -118,7 +118,7 @@ jobs:
 
       - name: Archive Apigeelint results
         if: ${{ env.run_step }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: apigeelint-report
           path: ./apiProxy/apigeelint-out.html
@@ -132,7 +132,7 @@ jobs:
 
       - name: Archive esLint results
         if: ${{ env.run_step }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: eslint-report
           path: ./apiProxy/eslint-out.html
@@ -146,7 +146,7 @@ jobs:
   
       - name: Archive Mocha results
         if: ${{ env.run_step }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: mocha-report
           path:  ./apiProxy/coverage/index.html
@@ -162,7 +162,7 @@ jobs:
 
       - name: Cache the Maven packages to speed up build
         if: ${{ env.run_step }}
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
@@ -207,7 +207,7 @@ jobs:
 
       - name: Archive Apickli results
         if: ${{ env.run_step }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: apickli-report
           path: ./apiProxy/cucumber_report.html
@@ -225,7 +225,7 @@ jobs:
         working-directory: apiHub
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       # Determine if allsteps in this job must be skipped
       # Currently it is not possible to early-exit the job with "success" status
