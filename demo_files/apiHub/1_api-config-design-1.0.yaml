@@ -65,7 +65,7 @@ data:
            displayName: Performance dashboard
            category: apihub-other
            resource: ""
-           uri: https://apigee.google.com/organizations/bap-emea-apigee-5/analytics/proxy-performance
+           uri: https://apigee.google.com/organizations/bap-emea-apigee-3/analytics/proxy-performance
    - kind: ReferenceList
      metadata:
        name: apihub-dependencies
