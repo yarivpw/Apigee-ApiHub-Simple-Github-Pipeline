@@ -58,8 +58,8 @@ data:
      data:
        displayName: dev
        apiSpecRevision: 100/specs/airport-1.0.0yaml@latest
-       endpointURI: 34.117.38.184.nip.io
-       externalChannelURI: https://bap-emea-apigee-5-cltest.apigee.io
+       endpointURI: 35-201-121-246.nip.io
+       externalChannelURI: https://bap-emea-apigee-3-cltest.apigee.io
        intendedAudience: The development version of Airports-CICD API
        accessGuidance: All access is self-service through our public developer portal. Visit the site to self-manage access.
  artifacts:
@@ -79,7 +79,7 @@ data:
            displayName: Performance dashboard
            category: apihub-other
            resource: ""
-           uri: https://apigee.google.com/organizations/bap-emea-apigee-5/analytics/proxy-performance
+           uri: https://apigee.google.com/organizations/bap-emea-apigee-3/analytics/proxy-performance
    - kind: ReferenceList
      metadata:
        name: apihub-dependencies
