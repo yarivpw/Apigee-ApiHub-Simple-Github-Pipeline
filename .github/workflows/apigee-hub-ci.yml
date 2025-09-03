@@ -5,9 +5,9 @@ on: push
 
 env:
   # Default Target Apigee Organization et environment (can be also be dynamically defined in [Set Variables *] steps)
-  APIGEE_ORG: bap-emea-apigee-5
-  APIGEE_ENV: default-dev
-  TEST_HOST: 34.117.38.184.nip.io
+  APIGEE_ORG: bap-emea-apigee-3
+  APIGEE_ENV: demo-env
+  TEST_HOST: 35-201-121-246.nip.io
   GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
   
   GIT_BRANCH: ''
